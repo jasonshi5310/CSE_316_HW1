@@ -348,19 +348,21 @@ class TodoListModel {
 
 
     /**
-     *  Sumbit the edition of a item
+     *  Submit the edition of a item
+     * 
+     * @param {int} index the index of the item
      */
-    sumbitItemChanges(index)
+    submitItemChanges(index)
     {
-        var description = document.getElementById(TodoGUIId.ITEM_DESCRIPTION_TEXTFIELD).value;
         var assignedto = document.getElementById(TodoGUIId.ITEM_ASSIGNED_TO_TEXTFIELD).value;
         var dueDate = document.getElementById(TodoGUIId.ITEM_DUE_DATE_PICKER).value;
         var completed = document.getElementById(TodoGUIId.ITEM_COMPLETED_CHECKBOX).checked;
-        let newItem = this.listToEdit.getItemAtIndex(index);
-        newItem.setDescription(description);
+        let newItem = this.listToEdit.items[index];
+        newItem.setDescription(document.getElementById(TodoGUIId.ITEM_DESCRIPTION_TEXTFIELD).value);
         newItem.setAssignedTo(assignedto);
         newItem.setDueDate(dueDate);
         newItem.setCompleted(completed);
+        this.view.loadItems(this.listToEdit);
         this.cancelNewItem();
     }
 
@@ -378,6 +380,46 @@ class TodoListModel {
         document.getElementById(TodoGUIId.ITEM_DUE_DATE_PICKER).value = item.getDueDate();
         document.getElementById(TodoGUIId.ITEM_COMPLETED_CHECKBOX).checked = item.isCompleted();
         this.addNewItem();
+
+    }
+
+    /**
+     * move item one slot up
+     */
+    moveItemUp(index)
+    {
+        let currentItem = this.listToEdit.items[index];
+        let previousItem = this.listToEdit.items[Number(index)-1];
+        this.listToEdit.items[Number(index)-1] = currentItem;
+        this.listToEdit.items[index] = previousItem;
+        this.view.loadItems(this.listToEdit);
+        this.view.goList();
+    }
+
+    /**
+     * move item one slot down
+     */
+    moveItemDown(index)
+    {
+        let currentItem = this.listToEdit.items[index];
+        let nextItem = this.listToEdit.items[Number(index)+1];
+        this.listToEdit.items[Number(index)+1] = currentItem;
+        this.listToEdit.items[index] = nextItem;
+        this.view.loadItems(this.listToEdit);
+        this.view.goList();
+
+    }
+
+
+    /**
+     * delete a item
+     */
+    deleteItem(index)
+    {
+        this.listToEdit.items.splice(index, 1);
+        this.view.loadItems(this.listToEdit);
+        this.view.goList();
+        
 
     }
 }

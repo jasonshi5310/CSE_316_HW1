@@ -29,7 +29,8 @@ const TodoHTML = {
     ONCLICK: "onclick",
     SPAN: "span",
     STRONG: "strong",
-    MOUSEENTER: "mouseenter"
+    BUTTON: "button"
+
 };
 
 /**
@@ -82,7 +83,11 @@ const TodoGUIId = {
     ITEM_DESCRIPTION_TEXTFIELD: "item_description_textfield",
     ITEM_ASSIGNED_TO_TEXTFIELD: "item_assigned_to_textfield",
     ITEM_DUE_DATE_PICKER: "item_due_date_picker",
-    ITEM_COMPLETED_CHECKBOX: "item_completed_checkbox"
+    ITEM_COMPLETED_CHECKBOX: "item_completed_checkbox",
+
+    LIST_ITEM_CARD_REMOVEITEM_: "list_item_card_removeItem_",
+    LIST_ITEM_CARD_UPARROW_: "list_item_card_uparrow_",
+    LIST_ITEM_CARD_DOWNARROW_: "list_item_card_downarrow_",
 
 };
 
@@ -111,7 +116,9 @@ const TodoGUIClass = {
     LIST_ITEM_CARD_DUE_DATE:"list_item_card_due_date",
     LIST_ITEM_CARD_TOOLBAR:"list_item_card_toolbar",
     LIST_ITEM_CARD_BUTTON_GREEN:"list_item_card_button_green",
-    LIST_ITEM_CARD_BUTTON_GREY:"list_item_card_button_grey"
+    LIST_ITEM_CARD_BUTTON_GREY:"list_item_card_button_grey",
+
+    DISABLED: "disabled"
 
 };
 

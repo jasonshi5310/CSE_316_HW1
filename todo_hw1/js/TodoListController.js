@@ -127,17 +127,20 @@ class TodoListController {
      */
     processEditItem(index)
     {
-        this.registerEventHandler(TodoGUIId.ITEM_FORM_SUMBIT_BUTTON, TodoHTML.CLICK, this[TodoCallback.PROCESS_SUBMIT_ITEM_CHANGES]);
+        //this.registerEventHandler(TodoGUIId.ITEM_FORM_SUMBIT_BUTTON, TodoHTML.CLICK, this[TodoCallback.PROCESS_SUBMIT_ITEM_CHANGES]);
+        $(document).on(TodoHTML.CLICK, "#"+TodoGUIId.ITEM_FORM_SUMBIT_BUTTON, function(){
+            window.todo.controller.processSubmitItemChanges(index);
+        });
         window.todo.model.editItem(index);
     }
 
     /**
      *  This function responds to when the user want to submit changes for items
      * 
-     *  @param {int} index the index of the item
+     *  @param {string} index the index of the item
      */
     processSubmitItemChanges(index) {
-        window.todo.model.sumbitItemChanges(index);
+        window.todo.model.submitItemChanges(index);
 
     }
 
@@ -229,5 +232,34 @@ class TodoListController {
         else {
             window.todo.model.sortTasks(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING);
         }
+    }
+
+    /**
+     * This function move the seleted item one slot up
+     */
+    processMoveItemUp(index){
+        event.stopPropagation();
+        window.todo.model.moveItemUp(index);
+
+    }
+
+    /**
+     * This function move the seleted item on slot down
+     */
+    processMoveItemDown(index){
+        event.stopPropagation();
+        window.todo.model.moveItemDown(index);
+
+
+    }
+
+    /**
+     * This function remove the seleted item from the list
+     */
+    processDeleteItem(index){
+        event.stopPropagation();
+        window.todo.model.deleteItem(index);
+        
+
     }
 }

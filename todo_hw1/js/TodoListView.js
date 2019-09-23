@@ -79,30 +79,60 @@ class TodoListView {
 
         let toolbarDiv = document.createElement(TodoHTML.DIV);
         toolbarDiv.setAttribute(TodoHTML.CLASS, TodoGUIClass.LIST_ITEM_CARD_TOOLBAR);
+       
         // Up arrow: &#8679 Down arrow: &#8681 Remove item: &#10005
-        let upArrow = document.createElement(TodoHTML.DIV);
+        let upArrow = document.createElement(TodoHTML.BUTTON);
+        upArrow.setAttribute(TodoHTML.ID, TodoGUIId.LIST_ITEM_CARD_UPARROW_ + listItemIndex);
+        // $(document).on(TodoHTML.CLICK, "#"+upArrow.id, function(){
+        //     window.todo.controller.processMoveItemUp(listItemIndex);
+            
+        // });
+        this.setupCallback(upArrow, TodoHTML.ONCLICK, TodoCallback.PROCESS_MOVE_ITEM_UP, itemArgs);
         if (listItemIndex==0) {
             upArrow.setAttribute(TodoHTML.CLASS, TodoGUIClass.LIST_ITEM_CARD_BUTTON_GREY);
+            //this.disableButton(upArrow.id);
+            upArrow.disabled = true;
         }
         else {
             upArrow.setAttribute(TodoHTML.CLASS, TodoGUIClass.LIST_ITEM_CARD_BUTTON_GREEN);
+            upArrow.disabled = false;
         }       
         upArrow.innerHTML = "&#8679";
-        let downArrow = document.createElement(TodoHTML.DIV);
+
+        //Down Arrow
+        let downArrow = document.createElement(TodoHTML.BUTTON);
+        downArrow.setAttribute(TodoHTML.ID, TodoGUIId.LIST_ITEM_CARD_DOWNARROW_+listItemIndex);
+        // $(document).on(TodoHTML.CLICK, "#"+downArrow.id, function(){
+        //     window.todo.controller.processMoveItemDown(listItemIndex);
+        // });
+        this.setupCallback(downArrow, TodoHTML.ONCLICK, TodoCallback.PROCESS_MOVE_ITEM_DOWN, itemArgs);
         if (ifLast) {
             downArrow.setAttribute(TodoHTML.CLASS, TodoGUIClass.LIST_ITEM_CARD_BUTTON_GREY);
+            //this.disableButton(downArrow.id);
+            downArrow.disabled = true;
         }
         else {
             downArrow.setAttribute(TodoHTML.CLASS, TodoGUIClass.LIST_ITEM_CARD_BUTTON_GREEN);
+            //this.enableButton(downArrow.id);
+            downArrow.disabled = false;
         }
         downArrow.innerHTML = "&#8681";
-        let removeItem = document.createElement(TodoHTML.DIV);
+
+        // Remove button
+        let removeItem = document.createElement(TodoHTML.BUTTON);
         removeItem.setAttribute(TodoHTML.CLASS, TodoGUIClass.LIST_ITEM_CARD_BUTTON_GREEN);
+        removeItem.setAttribute(TodoHTML.ID, TodoGUIId.LIST_ITEM_CARD_REMOVEITEM_+listItemIndex);
+        // $(document).on(TodoHTML.CLICK, "#"+removeItem.id, function(){
+        //     window.todo.controller.processDeleteItem(listItemIndex);
+        // });
+        this.setupCallback(removeItem, TodoHTML.ONCLICK, TodoCallback.PROCESS_DELETE_ITEM, itemArgs);
+        //this.enableButton(removeItem.id);
+        removeItem.disabled = false;
         removeItem.innerHTML = "&#10005";
+
         toolbarDiv.appendChild(upArrow);
         toolbarDiv.appendChild(downArrow);
         toolbarDiv.appendChild(removeItem);
-
 
         // THESE THREE SPANS GO IN THE DETAILS DIV
         newItemDiv.appendChild(descriptionDiv);
@@ -111,10 +141,6 @@ class TodoListView {
         newItemDiv.appendChild(completedDiv);
         newItemDiv.appendChild(toolbarDiv);
 
-        // Add listener
-        $(document).on(TodoHTML.CLICK,'#'+newItemDiv.id, function(){
-            window.todo.controller.processEditItem(listItemIndex);
-        });
 
         return newItemDiv;
     }
@@ -340,24 +366,20 @@ class TodoListView {
      * This function can be used to disable on of the three buttons for each
      * list item, which are for moving an item up or down or for removing it.
      * 
-     * @param {Number} itemIndex 
-     * @param {TodoGUIId} buttonType 
+     * @param {string} buttonId the id 
      */
-    disableButton(itemIndex, buttonType) {
-        let buttonId = TodoGUIId.ITEM_CARD_ + itemIndex + buttonType;
+    disableButton(buttonId) {
         let button = document.getElementById(buttonId);
-        button.classList.add(TodoGUIClass.DISABLED);        
+        button.add(TodoGUIClass.DISABLED);        
     }
 
     /**
      * This function can be used to enable one of the three buttons for each
      * list item, which are for moving an item up or down or for removing it.
      * 
-     * @param {Number} itemIndex 
-     * @param {TodoGUIId} buttonType 
+     * @param {string} buttonId the id for button
      */
-    enableButton(itemIndex, buttonType) {
-        let buttonId = TodoGUIId.ITEM_CARD_ + itemIndex + buttonType;
+    enableButton(buttonId) {
         let button = document.getElementById(buttonId);
         button.classList.remove(TodoGUIClass.DISABLED);        
     }
