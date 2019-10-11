@@ -89,6 +89,8 @@ const TodoGUIId = {
     LIST_ITEM_CARD_UPARROW_: "list_item_card_uparrow_",
     LIST_ITEM_CARD_DOWNARROW_: "list_item_card_downarrow_",
 
+    CONTROLLER: "window.todo.controller."
+
 };
 
 /**

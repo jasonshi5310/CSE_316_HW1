@@ -393,7 +393,7 @@ class TodoListModel {
         this.listToEdit.items[Number(index)-1] = currentItem;
         this.listToEdit.items[index] = previousItem;
         this.view.loadItems(this.listToEdit);
-        this.view.goList();
+        this.goList();
     }
 
     /**
@@ -406,7 +406,7 @@ class TodoListModel {
         this.listToEdit.items[Number(index)+1] = currentItem;
         this.listToEdit.items[index] = nextItem;
         this.view.loadItems(this.listToEdit);
-        this.view.goList();
+        this.goList();
 
     }
 
@@ -418,7 +418,7 @@ class TodoListModel {
     {
         this.listToEdit.items.splice(index, 1);
         this.view.loadItems(this.listToEdit);
-        this.view.goList();
+        this.goList();
         
 
     }

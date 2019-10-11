@@ -98,7 +98,9 @@ class TodoListController {
      *  This function pop a new dialog and let the user add a item to the list
      */
     processAddNewItem() {
-        this.registerEventHandler(TodoGUIId.ITEM_FORM_SUMBIT_BUTTON, TodoHTML.CLICK, this[TodoCallback.PROCESS_SUBMIT_NEW_ITEM]);
+        //this.registerEventHandler(TodoGUIId.ITEM_FORM_SUMBIT_BUTTON, TodoHTML.CLICK, this[TodoCallback.PROCESS_SUBMIT_NEW_ITEM]);
+        var sumbitBtn = document.getElementById(TodoGUIId.ITEM_FORM_SUMBIT_BUTTON);
+        window.todo.view.setupCallback(sumbitBtn, TodoHTML.ONCLICK, TodoGUIId.CONTROLLER+TodoCallback.PROCESS_SUBMIT_NEW_ITEM, -1);
         window.todo.model.addNewItem();
     }
 
@@ -127,10 +129,8 @@ class TodoListController {
      */
     processEditItem(index)
     {
-        //this.registerEventHandler(TodoGUIId.ITEM_FORM_SUMBIT_BUTTON, TodoHTML.CLICK, this[TodoCallback.PROCESS_SUBMIT_ITEM_CHANGES]);
-        $(document).on(TodoHTML.CLICK, "#"+TodoGUIId.ITEM_FORM_SUMBIT_BUTTON, function(){
-            window.todo.controller.processSubmitItemChanges(index);
-        });
+        var sumbitBtn = document.getElementById(TodoGUIId.ITEM_FORM_SUMBIT_BUTTON);
+        window.todo.view.setupCallback(sumbitBtn, TodoHTML.ONCLICK, TodoGUIId.CONTROLLER+TodoCallback.PROCESS_SUBMIT_ITEM_CHANGES, index);
         window.todo.model.editItem(index);
     }
 

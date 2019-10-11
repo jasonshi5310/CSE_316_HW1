@@ -189,6 +189,8 @@ class TodoListView {
         newA.setAttribute(TodoHTML.CLASS, TodoGUIClass.HOME_LIST_LINK);
         newA.setAttribute('href', '#');
         newA.innerHTML = listName;
+        if (listName=="")
+            newA.innerHTML = "Unnknown";
         let br = document.createElement(TodoHTML.BR);
         newA.appendChild(br);
         let callbackArguments = [listName];
